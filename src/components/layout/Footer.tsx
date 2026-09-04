@@ -195,6 +195,11 @@ export default function Footer() {
                   Terms of Service
                 </Link>
               </li>
+              <li>
+                <Link href="/api-docs" className="text-emerald-400 font-semibold hover:text-emerald-300 transition-colors flex items-center gap-1">
+                  ⚡ Swagger API Docs
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
