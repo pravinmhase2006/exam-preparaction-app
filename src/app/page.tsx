@@ -539,6 +539,86 @@ export default async function HomePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 relative z-10">
             <Link 
+              href="/quiz-battle"
+              className="bg-white/10 hover:bg-white/15 backdrop-blur-md rounded-2xl p-5 border border-white/10 hover:border-rose-400 transition-all group flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center font-black text-lg mb-3">
+                  ⚔️
+                </div>
+                <h3 className="font-bold text-base text-white group-hover:text-rose-300 transition-colors">
+                  1v1 Speed Quiz Battle
+                </h3>
+                <p className="text-xs text-indigo-100/70 mt-1 leading-relaxed">
+                  60-second rapid-fire live duel vs peers or AI with combo multipliers and real-time scorebars.
+                </p>
+              </div>
+              <div className="mt-4 text-xs font-bold text-rose-300 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                Enter Quiz Arena →
+              </div>
+            </Link>
+
+            <Link 
+              href="/cutoff-predictor"
+              className="bg-white/10 hover:bg-white/15 backdrop-blur-md rounded-2xl p-5 border border-white/10 hover:border-sky-400 transition-all group flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center font-black text-lg mb-3">
+                  📊
+                </div>
+                <h3 className="font-bold text-base text-white group-hover:text-sky-300 transition-colors">
+                  AI Cutoff Predictor & Normalizer
+                </h3>
+                <p className="text-xs text-indigo-100/70 mt-1 leading-relaxed">
+                  Calculate normalized shift scores, percentile ranks, and Tier-2 selection probability.
+                </p>
+              </div>
+              <div className="mt-4 text-xs font-bold text-sky-300 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                Predict My Cutoff →
+              </div>
+            </Link>
+
+            <Link 
+              href="/vocab-builder"
+              className="bg-white/10 hover:bg-white/15 backdrop-blur-md rounded-2xl p-5 border border-white/10 hover:border-emerald-400 transition-all group flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-black text-lg mb-3">
+                  🗣️
+                </div>
+                <h3 className="font-bold text-base text-white group-hover:text-emerald-300 transition-colors">
+                  30-Day Word Power & Idioms
+                </h3>
+                <p className="text-xs text-indigo-100/70 mt-1 leading-relaxed">
+                  Daily high-frequency exam root words, audio pronunciation, synonyms & mnemonic shortcuts.
+                </p>
+              </div>
+              <div className="mt-4 text-xs font-bold text-emerald-300 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                Boost Vocabulary →
+              </div>
+            </Link>
+
+            <Link 
+              href="/document-vault"
+              className="bg-white/10 hover:bg-white/15 backdrop-blur-md rounded-2xl p-5 border border-white/10 hover:border-amber-400 transition-all group flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-black text-lg mb-3">
+                  📂
+                </div>
+                <h3 className="font-bold text-base text-white group-hover:text-amber-300 transition-colors">
+                  One-Click Document Locker
+                </h3>
+                <p className="text-xs text-indigo-100/70 mt-1 leading-relaxed">
+                  Encrypted local vault for academic marks & roll numbers with 1-click clipboard autofill.
+                </p>
+              </div>
+              <div className="mt-4 text-xs font-bold text-amber-300 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                Open Document Vault →
+              </div>
+            </Link>
+
+            <Link 
               href="/typing-test"
               className="bg-white/10 hover:bg-white/15 backdrop-blur-md rounded-2xl p-5 border border-white/10 hover:border-indigo-400 transition-all group flex flex-col justify-between"
             >

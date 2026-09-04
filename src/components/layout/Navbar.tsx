@@ -473,6 +473,50 @@ export default function Navbar({ initialUser = null }: NavbarProps) {
 
             <li>
               <Link
+                href="/quiz-battle"
+                className={`px-3 py-2.5 block hover:bg-slate-800 rounded-t transition-colors ${
+                  pathname === '/quiz-battle' ? 'bg-slate-800 text-rose-400 font-semibold' : 'text-slate-200'
+                }`}
+              >
+                ⚔️ Quiz Battle
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                href="/cutoff-predictor"
+                className={`px-3 py-2.5 block hover:bg-slate-800 rounded-t transition-colors ${
+                  pathname === '/cutoff-predictor' ? 'bg-slate-800 text-sky-400 font-semibold' : 'text-slate-200'
+                }`}
+              >
+                📊 Cutoff Predictor
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                href="/vocab-builder"
+                className={`px-3 py-2.5 block hover:bg-slate-800 rounded-t transition-colors ${
+                  pathname === '/vocab-builder' ? 'bg-slate-800 text-emerald-400 font-semibold' : 'text-slate-200'
+                }`}
+              >
+                🗣️ Word Power
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                href="/document-vault"
+                className={`px-3 py-2.5 block hover:bg-slate-800 rounded-t transition-colors ${
+                  pathname === '/document-vault' ? 'bg-slate-800 text-amber-400 font-semibold' : 'text-slate-200'
+                }`}
+              >
+                📂 Document Locker
+              </Link>
+            </li>
+
+            <li>
+              <Link
                 href="/typing-test"
                 className={`px-3 py-2.5 block hover:bg-slate-800 rounded-t transition-colors ${
                   pathname === '/typing-test' ? 'bg-slate-800 text-emerald-400 font-semibold' : 'text-slate-200'
@@ -552,6 +596,18 @@ export default function Navbar({ initialUser = null }: NavbarProps) {
           <div className="grid grid-cols-2 gap-2 text-sm">
             <Link href="/jobs" className="p-2.5 rounded-lg bg-slate-50 font-medium text-slate-800 hover:bg-blue-50">
               💼 All Govt Jobs
+            </Link>
+            <Link href="/quiz-battle" className="p-2.5 rounded-lg bg-rose-50 font-medium text-rose-700">
+              ⚔️ 1v1 Quiz Battle
+            </Link>
+            <Link href="/cutoff-predictor" className="p-2.5 rounded-lg bg-sky-50 font-medium text-sky-700">
+              📊 Cutoff Predictor
+            </Link>
+            <Link href="/vocab-builder" className="p-2.5 rounded-lg bg-emerald-50 font-medium text-emerald-800">
+              🗣️ Word Power
+            </Link>
+            <Link href="/document-vault" className="p-2.5 rounded-lg bg-amber-50 font-medium text-amber-800">
+              📂 Document Locker
             </Link>
             <Link href="/mock-tests" className="p-2.5 rounded-lg bg-blue-50 font-medium text-blue-700">
               🎯 Free Mock Tests
