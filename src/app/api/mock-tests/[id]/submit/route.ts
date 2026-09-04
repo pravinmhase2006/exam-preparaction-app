@@ -46,7 +46,10 @@ export async function POST(
         score -= q.negativeMarks || 0.5;
       }
 
+      const marksObtained = !chosen ? 0 : (isCorrect ? (q.marks || 2.0) : -(q.negativeMarks || 0.5));
+
       return {
+        id: q.id,
         questionId: q.id,
         questionText: q.questionText,
         questionTextHi: q.questionTextHi,
@@ -55,9 +58,10 @@ export async function POST(
         optionC: q.optionC,
         optionD: q.optionD,
         userAnswer: chosen,
-        correctAnswer: q.correctAnswer,
+        correctAnswer: q.correctAnswer || '',
         isCorrect,
         explanation: q.explanation,
+        marksObtained,
       };
     });
 

@@ -54,9 +54,25 @@ export default function JobAlertModal({ isOpen: controlledIsOpen, onClose, trigg
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!contact.trim()) return;
+
+    try {
+      await fetch('/api/job-alerts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          channel,
+          contact: contact.trim(),
+          exams: selectedExams,
+          frequency,
+        }),
+      });
+    } catch {
+      // Graceful fallback
+    }
+
     setIsSubmitted(true);
   };
 
