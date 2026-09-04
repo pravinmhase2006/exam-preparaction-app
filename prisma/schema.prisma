@@ -1,6 +1,6 @@
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -8,7 +8,7 @@ generator client {
 }
 
 model User {
-  id            String         @id @default(cuid())
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
   name          String
   email         String         @unique
   password      String
@@ -25,8 +25,8 @@ model User {
 }
 
 model Profile {
-  id                 String   @id @default(cuid())
-  userId             String   @unique
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId             String   @unique @db.ObjectId
   user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   phone              String?
   dob                String?
@@ -44,7 +44,7 @@ model Profile {
 }
 
 model Organization {
-  id          String      @id @default(cuid())
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   shortName   String      @unique
   slug        String      @unique
@@ -60,14 +60,14 @@ model Organization {
 }
 
 model State {
-  id   String @id @default(cuid())
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
   name String @unique
   code String @unique
   jobs Job[]
 }
 
 model JobCategory {
-  id          String   @id @default(cuid())
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String   @unique
   slug        String   @unique
   description String?
@@ -77,19 +77,19 @@ model JobCategory {
 }
 
 model Job {
-  id                     String        @id @default(cuid())
+  id                     String        @id @default(auto()) @map("_id") @db.ObjectId
   title                  String
   slug                   String        @unique
-  organizationId         String
+  organizationId         String        @db.ObjectId
   organization           Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   department             String?
-  categoryId             String
+  categoryId             String        @db.ObjectId
   category               JobCategory   @relation(fields: [categoryId], references: [id])
   qualification          String        // 10th Pass, 12th Pass, Graduate, Diploma, ITI, Engineering, Any Degree
   vacancies              Int           @default(0)
   vacanciesDisplay       String?       // "17,727 Posts"
   location               String        @default("All India")
-  stateId                String?
+  stateId                String?       @db.ObjectId
   state                  State?        @relation(fields: [stateId], references: [id])
   salary                 String        @default("As per 7th CPC")
   jobType                String        @default("Regular / Permanent") // Permanent, Contract, Apprenticeship
@@ -124,11 +124,11 @@ model Job {
 }
 
 model Exam {
-  id               String          @id @default(cuid())
+  id               String          @id @default(auto()) @map("_id") @db.ObjectId
   name             String
   slug             String          @unique
   category         String          // SSC, Railway, Banking, UPSC, State PSC, Police, Defence, Teaching
-  organizationId   String
+  organizationId   String          @db.ObjectId
   organization     Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   frequency        String          @default("Annual")
   officialWebsite  String?
@@ -152,17 +152,17 @@ model Exam {
 }
 
 model Subject {
-  id        String     @id @default(cuid())
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   slug      String
   questions Question[]
 }
 
 model Question {
-  id                String             @id @default(cuid())
-  examId            String?
+  id                String             @id @default(auto()) @map("_id") @db.ObjectId
+  examId            String?            @db.ObjectId
   exam              Exam?              @relation(fields: [examId], references: [id], onDelete: SetNull)
-  subjectId         String?
+  subjectId         String?            @db.ObjectId
   subject           Subject?           @relation(fields: [subjectId], references: [id], onDelete: SetNull)
   topic             String?
   questionText      String
@@ -190,10 +190,10 @@ model Question {
 }
 
 model MockTest {
-  id              String             @id @default(cuid())
+  id              String             @id @default(auto()) @map("_id") @db.ObjectId
   title           String
   slug            String             @unique
-  examId          String
+  examId          String             @db.ObjectId
   exam            Exam               @relation(fields: [examId], references: [id], onDelete: Cascade)
   description     String?
   durationMinutes Int                @default(60)
@@ -211,19 +211,19 @@ model MockTest {
 }
 
 model MockTestQuestion {
-  id         String   @id @default(cuid())
-  mockTestId String
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  mockTestId String   @db.ObjectId
   mockTest   MockTest @relation(fields: [mockTestId], references: [id], onDelete: Cascade)
-  questionId String
+  questionId String   @db.ObjectId
   question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
   order      Int      @default(0)
 }
 
 model TestAttempt {
-  id                String   @id @default(cuid())
-  userId            String
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String   @db.ObjectId
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  mockTestId        String
+  mockTestId        String   @db.ObjectId
   mockTest          MockTest @relation(fields: [mockTestId], references: [id], onDelete: Cascade)
   score             Float
   totalMarks        Float
@@ -239,12 +239,12 @@ model TestAttempt {
 }
 
 model Result {
-  id              String       @id @default(cuid())
+  id              String       @id @default(auto()) @map("_id") @db.ObjectId
   title           String
   slug            String       @unique
-  examId          String?
+  examId          String?      @db.ObjectId
   exam            Exam?        @relation(fields: [examId], references: [id], onDelete: SetNull)
-  organizationId  String
+  organizationId  String       @db.ObjectId
   organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   resultDate      DateTime     @default(now())
   examDate        String?
@@ -257,12 +257,12 @@ model Result {
 }
 
 model AdmitCard {
-  id                      String       @id @default(cuid())
+  id                      String       @id @default(auto()) @map("_id") @db.ObjectId
   title                   String
   slug                    String       @unique
-  examId                  String?
+  examId                  String?      @db.ObjectId
   exam                    Exam?        @relation(fields: [examId], references: [id], onDelete: SetNull)
-  organizationId          String
+  organizationId          String       @db.ObjectId
   organization            Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   examDate                String
   releaseDate             DateTime     @default(now())
@@ -274,12 +274,12 @@ model AdmitCard {
 }
 
 model AnswerKey {
-  id                String       @id @default(cuid())
+  id                String       @id @default(auto()) @map("_id") @db.ObjectId
   title             String
   slug              String       @unique
-  examId            String?
+  examId            String?      @db.ObjectId
   exam              Exam?        @relation(fields: [examId], references: [id], onDelete: SetNull)
-  organizationId    String
+  organizationId    String       @db.ObjectId
   organization      Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   releaseDate       DateTime     @default(now())
   objectionDeadline String?
@@ -291,10 +291,10 @@ model AnswerKey {
 }
 
 model Syllabus {
-  id          String   @id @default(cuid())
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   slug        String   @unique
-  examId      String
+  examId      String   @db.ObjectId
   exam        Exam     @relation(fields: [examId], references: [id], onDelete: Cascade)
   tier        String   @default("Tier 1 / Prelims")
   content     String   // Structured Markdown or JSON
@@ -304,10 +304,10 @@ model Syllabus {
 }
 
 model PreviousPaper {
-  id             String   @id @default(cuid())
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
   title          String
   slug           String   @unique
-  examId         String
+  examId         String   @db.ObjectId
   exam           Exam     @relation(fields: [examId], references: [id], onDelete: Cascade)
   year           Int
   subject        String
@@ -320,7 +320,7 @@ model PreviousPaper {
 }
 
 model Article {
-  id           String   @id @default(cuid())
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
   title        String
   slug         String   @unique
   excerpt      String
@@ -340,7 +340,7 @@ model Article {
 }
 
 model StudyMaterial {
-  id          String   @id @default(cuid())
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   slug        String   @unique
   category    String   // Quantitative Aptitude, Reasoning, English, General Knowledge, General Science, Computer, Marathi, Hindi
@@ -355,8 +355,8 @@ model StudyMaterial {
 }
 
 model Bookmark {
-  id        String   @id @default(cuid())
-  userId    String
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   itemType  String   // JOB, EXAM, ARTICLE, STUDY_MATERIAL, MOCK_TEST
   itemId    String
@@ -368,8 +368,8 @@ model Bookmark {
 }
 
 model JobAlert {
-  id                String   @id @default(cuid())
-  userId            String
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String   @db.ObjectId
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   name              String
   qualification     String?
@@ -382,8 +382,8 @@ model JobAlert {
 }
 
 model Notification {
-  id        String   @id @default(cuid())
-  userId    String
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   title     String
   message   String
@@ -394,7 +394,7 @@ model Notification {
 }
 
 model Advertisement {
-  id          String    @id @default(cuid())
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   placement   String    // TOP_BANNER, HOMEPAGE_MID, JOB_SIDEBAR, ARTICLE_INLINE, FOOTER_BANNER
   imageUrl    String?
@@ -411,7 +411,7 @@ model Advertisement {
 }
 
 model PageView {
-  id        String   @id @default(cuid())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   path      String
   referrer  String?
   userAgent String?
@@ -419,7 +419,7 @@ model PageView {
 }
 
 model SiteSetting {
-  id          String   @id @default(cuid())
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   key         String   @unique
   value       String
   description String?
@@ -427,7 +427,7 @@ model SiteSetting {
 }
 
 model TechJob {
-  id              String   @id @default(cuid())
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
   title           String
   slug            String   @unique
   company         String
@@ -452,7 +452,7 @@ model TechJob {
 }
 
 model TechCourse {
-  id                  String   @id @default(cuid())
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
   title               String
   slug                String   @unique
   provider            String   @default("GovtPrep Academy") // e.g. IIT Madras NPTEL, Coursera, freeCodeCamp, Meta
@@ -476,7 +476,7 @@ model TechCourse {
 }
 
 model Internship {
-  id              String   @id @default(cuid())
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
   title           String
   slug            String   @unique
   company         String
