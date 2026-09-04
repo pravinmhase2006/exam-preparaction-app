@@ -4,6 +4,7 @@ import LiveTicker from '@/components/layout/LiveTicker';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import AspirantAIAssistant from '@/components/common/AspirantAIAssistant';
+import MobileBottomNav from '@/components/layout/MobileBottomNav';
 import { getCurrentUser } from '@/lib/auth';
 
 export const metadata: Metadata = {
@@ -49,11 +50,12 @@ export default async function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-screen flex flex-col font-sans bg-slate-50/50 text-slate-900 selection:bg-blue-600 selection:text-white">
+      <body className="min-h-screen flex flex-col font-sans bg-slate-50/50 text-slate-900 selection:bg-blue-600 selection:text-white pb-16 md:pb-0">
         <LiveTicker />
         <Navbar initialUser={user} />
         <main className="flex-1">{children}</main>
         <AspirantAIAssistant />
+        <MobileBottomNav />
         <Footer />
       </body>
     </html>

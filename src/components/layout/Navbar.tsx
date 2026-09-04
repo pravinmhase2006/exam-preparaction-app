@@ -22,6 +22,8 @@ import {
   CheckCircle2
 } from 'lucide-react';
 
+import ThemeToggle from '@/components/common/ThemeToggle';
+
 interface NavbarProps {
   initialUser?: {
     id: string;
@@ -189,6 +191,9 @@ export default function Navbar({ initialUser = null }: NavbarProps) {
                 </Link>
               </div>
             )}
+
+            {/* Theme Toggle Button */}
+            <ThemeToggle />
 
             {/* Mobile Menu Button */}
             <button

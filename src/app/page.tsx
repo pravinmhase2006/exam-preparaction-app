@@ -7,6 +7,7 @@ import TechJobCard from '@/components/tech/TechJobCard';
 import AdBanner from '@/components/ads/AdBanner';
 import QuestionOfTheDay from '@/components/common/QuestionOfTheDay';
 import JobAlertModal from '@/components/common/JobAlertModal';
+import AnimatedCounter from '@/components/common/AnimatedCounter';
 import {
   Search,
   ArrowRight,
@@ -103,9 +104,9 @@ export default async function HomePage() {
 
         <div className="max-w-5xl mx-auto text-center relative z-10 space-y-6">
           
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-800/60 border border-blue-600/50 text-blue-200 text-xs font-semibold shadow-inner">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-800/60 border border-blue-600/50 text-blue-200 text-xs font-semibold shadow-inner">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-            <span>Over 1,75,000+ Government Vacancies Active Today</span>
+            <span>Over <strong className="text-emerald-300 font-bold"><AnimatedCounter end={178450} suffix="+" /></strong> Active Government Vacancies Live Today</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-white">
